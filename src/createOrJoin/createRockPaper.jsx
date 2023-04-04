@@ -87,7 +87,7 @@ export default function CreateTicTacToe() {
                             </FormControl>
                             <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0px' }}>
                                 <FormControl sx={{ width: '180px' }}>
-                                    <Button onClick={handleSubmit} endDecorator={<PlayArrowIcon />} component={Link} to='/' size='sm' disabled={roomFilledOr}>Join a Game</Button>
+                                    <Button onClick={handleSubmit} endDecorator={<PlayArrowIcon />} component={Link} to='https://task-7-second-game-front-end.vercel.app/' size='sm' disabled={roomFilledOr}>Join a Game</Button>
                                 </FormControl>
                             </div>
                         </Sheet>
