@@ -10,13 +10,12 @@ import { socket } from '../socket/socket';
 export default function Game({ channel, setChannel }) {
     const navigate = useNavigate();
     const [playersJoined, setPlayersJoined] = useState(false);
-    const [numOfUsers, setNumOfUsers] = useState([]);
+    // const [sth, setSth] = useState();
     const [result, setResult] = useState({ winner: "none", state: "none" });
 
     useEffect(() => {
         socket.on('message', (data) => {
             setPlayersJoined(data.size >= 2 ? true : false);
-            setNumOfUsers(prev => [...prev, data.user]);
         });
     });
 
@@ -26,6 +25,7 @@ export default function Game({ channel, setChannel }) {
 
     const handleClick = () => {
         socket.emit('remove_user');
+        window.localStorage.clear();
         navigate('/tictactoe');
     }
 

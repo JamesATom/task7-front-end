@@ -14,20 +14,17 @@ export default function Board({ result, setResult }) {
     }, [board]);
 
     const chooseSquare = async (square) => {
-        console.log('Clicked: ', square);
         if (turn == player && board[square] == "") {
             setTurn(player == "X" ? "O" : "X");
             
-            setBoard(prev => [...prev.filter((val, idx) => {
+            setBoard(prev => [...prev.map((val, idx) => {
                 if (idx == square && val == "") {
-                    console.log('why');
                     return player;
                 }
                 return val;
             })]);
-            console.log('Board inside chooseSquare: ', board);
-
-            await socket.emit('game-move', {
+            
+            socket.emit('game-move', {
                 type: "game-move",
                 data: { square, player, board }
             });
@@ -38,7 +35,7 @@ export default function Board({ result, setResult }) {
         Patterns.forEach((currPattern) => {
             const firstPlayer = board[currPattern[0]];
             if (firstPlayer === "") return;
-                let foundWinningPattern = true;
+            let foundWinningPattern = true;
 
             currPattern.forEach((idx) => {
                 if (board[idx] !== firstPlayer) {
@@ -64,7 +61,6 @@ export default function Board({ result, setResult }) {
             setResult({ winner: "none", state: "tie" });
         }
     }
-
  
     socket.on('game-move', ({event}) => {
         if (event.type == "game-move") {
@@ -72,14 +68,12 @@ export default function Board({ result, setResult }) {
             setPlayer(currentPlayer);
             setTurn(currentPlayer);
             setBoard(event.data.board.map((val, idx) => {
-                        // console.log('VALUE: ', val);x
                         if (idx == event.data.square && val == "") {
                             return event.data.player;
                         }
                         return val;
                     })
             );
-            // console.log('Board inside socket.on: ', board);
         }
     });
    
