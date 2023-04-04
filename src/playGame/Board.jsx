@@ -77,8 +77,6 @@ export default function Board({ result, setResult }) {
         }
     });
    
-    
-
     return (
             <div className="board">
                 <div className="row">

@@ -10,12 +10,13 @@ import { socket } from '../socket/socket';
 export default function Game({ channel, setChannel }) {
     const navigate = useNavigate();
     const [playersJoined, setPlayersJoined] = useState(false);
-    // const [sth, setSth] = useState();
+    const [sth, setSth] = useState();
     const [result, setResult] = useState({ winner: "none", state: "none" });
 
     useEffect(() => {
         socket.on('message', (data) => {
             setPlayersJoined(data.size >= 2 ? true : false);
+            setSth('what');
         });
     });
 
